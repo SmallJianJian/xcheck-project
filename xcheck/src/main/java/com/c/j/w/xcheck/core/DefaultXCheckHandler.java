@@ -1,6 +1,7 @@
 package com.c.j.w.xcheck.core;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import com.alibaba.fastjson.JSONObject;
+import com.c.j.w.xcheck.core.po.FailureResponse;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,8 @@ public class DefaultXCheckHandler implements XCheckHandlerAdapter {
         try {
             response.setContentType("application/json; charset=utf-8");
             writer = response.getWriter();
-            writer.write("{\"status\":" + 400 + ",\"message\":\"" + failMessage + "\"}");
+//            writer.write(JSONObject.toJSONString(new FailureResponse(failMessage)));
+            writer.write("{\"status\":" + 5010 + ",\"message\":\"" + failMessage + "\"}");
         } catch (IOException var8) {
             var8.printStackTrace();
         } finally {
@@ -37,4 +39,8 @@ public class DefaultXCheckHandler implements XCheckHandlerAdapter {
         }
     }
 
+
+    public static void main(String[] args) {
+        System.out.printf(JSONObject.toJSONString(new FailureResponse("不能为空")));
+    }
 }

@@ -10,7 +10,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.maidao</groupId>
+            <groupId>com.wwdz.mall</groupId>
             <artifactId>xcheck</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

@@ -28,6 +28,7 @@ public class XCheckItemLogic implements XCheckItem {
         return rightField;
     }
 
+    @Override
     public String getMessage() {
         return message;
     }
