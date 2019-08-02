@@ -2,6 +2,7 @@ package com.c.j.w.xcheck.core;
 
 import com.alibaba.fastjson.JSONObject;
 import com.c.j.w.xcheck.core.po.FailureResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,9 @@ import java.io.PrintWriter;
 @Configuration
 public class DefaultXCheckHandler implements XCheckHandlerAdapter {
 
+    @Autowired(required = false)
+    private XCheckProperties xCheckProperties;
+
     /**
      * 设置校验不通过时响应处理
      * @param request
@@ -28,8 +32,11 @@ public class DefaultXCheckHandler implements XCheckHandlerAdapter {
         try {
             response.setContentType("application/json; charset=utf-8");
             writer = response.getWriter();
-//            writer.write(JSONObject.toJSONString(new FailureResponse(failMessage)));
-            writer.write("{\"status\":" + 5010 + ",\"message\":\"" + failMessage + "\"}");
+            FailureResponse failureResponse = new FailureResponse(failMessage);
+            if(null!= xCheckProperties.getErrorCode()){
+                failureResponse.setCode(xCheckProperties.getErrorCode());
+            }
+            writer.write(JSONObject.toJSONString(failureResponse));
         } catch (IOException var8) {
             var8.printStackTrace();
         } finally {
@@ -37,10 +44,5 @@ public class DefaultXCheckHandler implements XCheckHandlerAdapter {
                 writer.close();
             }
         }
-    }
-
-
-    public static void main(String[] args) {
-        System.out.printf(JSONObject.toJSONString(new FailureResponse("不能为空")));
     }
 }

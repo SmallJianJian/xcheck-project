@@ -13,6 +13,8 @@ public class XCheckProperties {
 
     /** 扫描包目录 */
     private String[] controllerPackage;
+    /** 错误编码*/
+    private Integer errorCode;
     /** 错误信息是否提示 */
     private boolean showErrorMessage = true;
     /** 语言环境 */
@@ -42,5 +44,13 @@ public class XCheckProperties {
 
     public void setShowErrorMessage(boolean showErrorMessage) {
         this.showErrorMessage = showErrorMessage;
+    }
+
+    public Integer getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(Integer errorCode) {
+        this.errorCode = errorCode;
     }
 }
